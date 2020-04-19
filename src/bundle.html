@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta name="Github-Finder" content="A simple github finder application" />
+    <link rel="manifest" href="manifest.json" />
+    <link rel="icon" type="image/png" sizes="96x96" href="icon-96x96.png" />
+    <title>Github Finder</title>
+  </head>
+  <body>
+    <main class="site-container">
+      <h1>Github Finder</h1>
+      <form action="#">
+        <label for="user-input">User :</label>
+        <input
+          type="text"
+          id="user-input"
+          placeholder="user name"
+          name="user-input"
+        />
+        <button type="submit" id="submit-button" disabled>Search</button>
+      </form>
+      <div id="validation__error-message" class="error-message novisible">
+      </div>
+      <article id="user-card-container"></article>
+    </main>
+  </body>
+</html>
