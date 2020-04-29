@@ -2,7 +2,6 @@ const path = require("path");
 const webpack = require("webpack");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 const isDev = process.env.NODE_ENV !== "prod";
 
@@ -16,7 +15,7 @@ module.exports = {
   },
   devtool: isDev && "source-map",
   devServer: {
-    port: 8080,
+    port: 7134,
     open: true,
   },
   module: {
