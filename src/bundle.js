@@ -1,12 +1,4 @@
 /**
- * barrel file for js & css imports
- * (webpack uses this to bundle all assets)
- */
-
-/**
- * scripts
+ * barrel file for js
  */
 import "./scripts/index.js";
-/**
- * styles
- */

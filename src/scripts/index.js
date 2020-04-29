@@ -49,15 +49,6 @@ function handleSubmitButtonClick(e) {
   submitButton.disabled = true;
 }
 
-function validateUsernameInput(value) {
-  let inputValue = [];
-  if (value === " ") {
-    displayErrorMessage(true, "no space allowed");
-  } else {
-    return;
-  }
-}
-
 function handleUserNameInput(e) {
   if (e.target.value) {
     displayErrorMessage(false);
