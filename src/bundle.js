@@ -10,4 +10,3 @@ import "./scripts/index.js";
 /**
  * styles
  */
-import "./styles/core.css";

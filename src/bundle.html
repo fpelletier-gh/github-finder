@@ -8,26 +8,58 @@
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
     />
     <meta name="Github-Finder" content="A simple github finder application" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" sizes="96x96" href="icon-96x96.png" />
     <title>Github Finder</title>
   </head>
-  <body>
-    <main class="site-container">
-      <h1>Github Finder</h1>
-      <form action="#">
-        <label for="user-input">User :</label>
-        <input
-          type="text"
-          id="user-input"
-          placeholder="user name"
-          name="user-input"
-        />
-        <button type="submit" id="submit-button" disabled>Search</button>
+  <body class="text-center">
+    <main class="container d-flex mx-auto flex-column m-4">
+      <h1 class='mb-4' >Gihub Finder</h1>
+      <form action="#" class="mx-auto">
+        <div class="form-row align-items-center">
+          <div class="col-auto">
+            <label for="user-input" class="sr-only">User :</label>
+            <input
+              type="text"
+              id="user-input"
+              class="form-control mb-2"
+              placeholder="Github user name"
+              name="user-input"
+            />
+          </div>
+          <div class="col-auto mb-2">
+            <button
+              type="submit"
+              id="submit-button"
+              class="btn btn-primary"
+              disabled
+            >
+              Search
+            </button>
+          </div>
+        </div>
       </form>
-      <div id="validation__error-message" class="error-message novisible">
+      <div
+        id="validation__error-message"
+        class="mx-auto alert alert-danger d-none"
+      ></div>
+      <div class="mx-auto">
+        <button
+          id="delete-all-button"
+          class="btn btn-primary mb-4"
+          disabled
+        >
+          Delete All
+        </button>
       </div>
-      <article id="user-card-container"></article>
+      <article class='d-flex flex-column align-items-xl-stretch mx-auto' id="user-card-container"></article>
     </main>
   </body>
 </html>

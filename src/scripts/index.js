@@ -1,6 +1,20 @@
 import { fetchApi, $ } from "./utils";
 
 const API_URL = "https://api.github.com/users/";
+let userCardList;
+
+window.addEventListener("load", startup, false);
+
+function startup() {
+  const savedUser = JSON.parse(window.localStorage.getItem("users")) || [];
+  userCardList = users(savedUser);
+  if (savedUser.length > 0) {
+    userCardList.displayLocalStorage();
+    deleteAllButton.disabled = false;
+  } else {
+    deleteAllButton.disabled = true;
+  }
+}
 
 function getUserData(apiUrl, user = "") {
   const userUrl = apiUrl + user;
@@ -9,35 +23,46 @@ function getUserData(apiUrl, user = "") {
 
 function showUserData(data, err) {
   if (err) {
-    displayErrorMessage(true, "You must provide a valid Github username")
+    displayErrorMessage(true, "You must provide a valid Github username");
   } else {
-    displayErrorMessage(false)
+    displayErrorMessage(false);
     displayUserCard(data);
+    const { avatar_url, bio, html_url, id, name } = data;
+    userCardList.addUser({ avatar_url, bio, html_url, id, name });
   }
 }
 
-function displayErrorMessage(visible = false, message = ""){
+function displayErrorMessage(visible = false, message = "") {
   if (visible) {
-    validationErrorMessage.classList.remove("novisible");
-    validationErrorMessage.innerText = message
+    validationErrorMessage.classList.remove("d-none");
+    validationErrorMessage.innerText = message;
   } else {
-    validationErrorMessage.classList.add("novisible");
-    validationErrorMessage.innerText = ""
+    validationErrorMessage.classList.add("d-none");
+    validationErrorMessage.innerText = "";
   }
-
 }
 
 function handleSubmitButtonClick(e) {
   e.preventDefault();
-  getUserData(API_URL, userNameInput.value);
+  getUserData(API_URL, userNameInput.value.trim());
+  userNameInput.value = "";
+  submitButton.disabled = true;
+}
+
+function validateUsernameInput(value) {
+  let inputValue = [];
+  if (value === " ") {
+    displayErrorMessage(true, "no space allowed");
+  } else {
+    return;
+  }
 }
 
 function handleUserNameInput(e) {
   if (e.target.value) {
-    validationErrorMessage.classList.add("novisible");
+    displayErrorMessage(false);
     submitButton.disabled = false;
   } else {
-    console.log("empty string : ", e.target.value);
     submitButton.disabled = true;
   }
 }
@@ -71,49 +96,116 @@ function createUserCard(data) {
   const { avatar_url, bio, html_url, id, name } = data;
   const card = createElementWithText("article", "", {
     id: id,
-    class: "user-card",
+    class: "card mb-3 p-1",
+    style: "max-width: 800px;",
   });
+  const cardDiv = createElementWithText("div", "", { class: "row no-gutters" });
+  const imgDiv = createElementWithText("div", "", { class: "col-md-4" });
   const avatar = createElementWithText("img", "", {
     src: avatar_url,
     alt: name,
+    class: "card-img",
+    style: "max-width: 200px;",
   });
-  const title = createElementWithText("h2", name);
-  const paragraph = createElementWithText("p", bio);
-  const link = createElementWithText("a", "Github page", { href: html_url });
+  const cardBodyDiv = createElementWithText("div", "", {
+    class: "col-md-8",
+  });
+  const cardBody = createElementWithText("div", "", {
+    class: "card-body",
+    style: "height: 100%;",
+  });
+  const cardBodyFlex = createElementWithText("div", "", {
+    class: "d-flex flex-column justify-content-between",
+    style: "height: 100%;",
+  });
+  const title = createElementWithText("h2", name, {
+    class: "card-title align-self-start",
+  });
+  const paragraph = createElementWithText("p", bio, {
+    class: "card-text align-self-start",
+  });
+  const linkDiv = createElementWithText("div", "", {
+    class: "card-text d-flex justify-content-between",
+  });
+  const link = createElementWithText("a", "Github page", {
+    href: html_url,
+    class: "btn btn-primary",
+  });
   const deleteButton = createElementWithText("button", "delete", {
-    class: "delete-button",
+    class: "btn btn-secondary",
+    id: "delete-button",
   });
-  appendAllChild(card, [avatar, title, paragraph, link, deleteButton]);
-  addUser(card);
+  appendAllChild(imgDiv, [avatar]);
+  appendAllChild(linkDiv, [link, deleteButton]);
+  appendAllChild(cardBodyFlex, [title, paragraph, linkDiv]);
+  appendAllChild(cardBody, [cardBodyFlex]);
+  appendAllChild(cardBodyDiv, [cardBody]);
+  appendAllChild(cardDiv, [imgDiv, cardBodyDiv]);
+  appendAllChild(card, [cardDiv]);
   return card;
 }
 
-let users = [];
+function users(userList = []) {
+  let userCardList = userList;
 
-function addUser(user) {
-  users.push(user);
-  localStorage.setItem("users", users);
-  console.log(users);
-}
+  function displayLocalStorage() {
+    userCardList.forEach((user) => {
+      displayUserCard(user);
+    });
+  }
 
-function removeUser(id) {
-  let newUserArr = users.filter((user) => user.id !== id);
-  users = [...newUserArr];
-  localStorage.setItem("users", users);
-  console.log(users);
-  let el = document.getElementById(id);
-  el.remove();
+  function addUser(user) {
+    userCardList.push(user);
+    window.localStorage.setItem("users", JSON.stringify(userCardList));
+    deleteAllButton.disabled = false;
+  }
+
+  function removeUser(userId) {
+    let newUserArr = userCardList.filter(
+      (user) => user.id !== parseInt(userId)
+    );
+    userCardList = [...newUserArr];
+    window.localStorage.setItem("users", JSON.stringify(userCardList));
+    let el = document.getElementById(userId);
+    el.remove();
+    if (userCardList.length === 0) {
+      deleteAllButton.disabled = true;
+    }
+  }
+
+  function removeAllUser() {
+    let userDeleteList = [...userCardList];
+    if (userDeleteList.length > 0) {
+      userDeleteList.forEach((user) => {
+        this.removeUser(user.id);
+      });
+    }
+  }
+
+  return { displayLocalStorage, addUser, removeUser, removeAllUser };
 }
 
 function removeUserCard(e) {
-  removeUser(e.target.parentElement.id);
+  if (e.target.id === "delete-button") {
+    userCardList.removeUser(
+      e.target.parentElement.parentElement.parentElement.parentElement
+        .parentElement.parentElement.id
+    );
+  }
+}
+
+function handleDeleteAllButton() {
+  userCardList.removeAllUser();
+  deleteAllButton.disabled = true;
 }
 
 const userCardContainer = $("#user-card-container");
 const userNameInput = $("#user-input");
 const submitButton = $("#submit-button");
 const validationErrorMessage = $("#validation__error-message");
+const deleteAllButton = $("#delete-all-button");
 
 userNameInput.addEventListener("input", handleUserNameInput, false);
 submitButton.addEventListener("click", handleSubmitButtonClick, false);
 userCardContainer.addEventListener("click", removeUserCard);
+deleteAllButton.addEventListener("click", handleDeleteAllButton);

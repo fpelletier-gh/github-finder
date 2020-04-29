@@ -14,15 +14,15 @@ const isDev = process.env.NODE_ENV !== "prod";
 module.exports = {
   // entry files
   entry: {
-    ["bundle"]: "./src/bundle.js"
+    ["bundle"]: "./src/bundle.js",
   },
   output: {
-    path: path.resolve(__dirname, "./dist")
+    path: path.resolve(__dirname, "./dist"),
   },
   devtool: isDev && "source-map",
   devServer: {
     port: 7134,
-    open: true
+    open: true,
   },
   module: {
     rules: [
@@ -38,10 +38,10 @@ module.exports = {
               "@babel/plugin-transform-runtime",
               "@babel/plugin-syntax-dynamic-import",
               "@babel/plugin-transform-async-to-generator",
-              "@babel/plugin-transform-regenerator"
-            ]
-          }
-        }
+              "@babel/plugin-transform-regenerator",
+            ],
+          },
+        },
       },
       // css
       {
@@ -55,8 +55,8 @@ module.exports = {
             options: {
               sourceMap: isDev,
               minimize: !isDev,
-              importLoaders: 1
-            }
+              importLoaders: 1,
+            },
           },
           // postcss loader (autoprefix + embed custom properties)
           {
@@ -64,19 +64,19 @@ module.exports = {
             options: {
               ident: "postcss",
               autoprefixer: {
-                browsers: ["last 2 versions"]
+                browsers: ["last 2 versions"],
               },
               sourceMap: isDev,
               plugins: [
                 postcssAutoPrefixer,
                 postcssCustomProperties({
                   importFrom: "./src/styles/_root.css",
-                  preserve: false
-                })
-              ]
-            }
-          }
-        ]
+                  preserve: false,
+                }),
+              ],
+            },
+          },
+        ],
       },
       // images & files
       {
@@ -87,9 +87,9 @@ module.exports = {
             options: {
               name: "[name].[ext]",
               outputPath: "static/",
-              useRelativePath: true
-            }
-          }
+              useRelativePath: true,
+            },
+          },
           // {
           //   loader: "image-webpack-loader",
           //   options: {
@@ -112,9 +112,9 @@ module.exports = {
           //     }
           //   }
           // }
-        ]
-      }
-    ]
+        ],
+      },
+    ],
   },
   plugins: [
     // for older webpack extensions interop
@@ -127,13 +127,13 @@ module.exports = {
         collapseWhitespace: true,
         caseSensitive: true,
         removeComments: true,
-        removeEmptyElements: false
-      }
+        removeEmptyElements: false,
+      },
     }),
     // extract css
     new MiniCssExtractPlugin({
       filename: "[name].css",
-      chunkFilename: "[id].css"
+      chunkFilename: "[id].css",
     }),
     // minify & inline css
     new StyleExtHtmlWebpackPlugin({
@@ -141,19 +141,19 @@ module.exports = {
       minify: {
         level: {
           1: {
-            all: true
+            all: true,
           },
           2: {
-            all: true
-          }
-        }
-      }
+            all: true,
+          },
+        },
+      },
     }),
     // inline js
     new ScriptExtHtmlWebpackPlugin({
-      inline: ["bundle.js"]
+      inline: ["bundle.js"],
     }),
     // copy assets to dist
-    new CopyWebpackPlugin([{ from: "./src/assets", to: "./" }])
-  ]
+    new CopyWebpackPlugin([{ from: "./src/assets", to: "./" }]),
+  ],
 };
