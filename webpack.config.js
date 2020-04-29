@@ -59,6 +59,6 @@ module.exports = {
       inline: ["bundle.js"],
     }),
     // copy assets to dist
-    new CopyWebpackPlugin([{ from: "./src/assets", to: "./" }]),
+    // new CopyWebpackPlugin([{ from: "./src/assets", to: "./" }]),
   ],
 };
