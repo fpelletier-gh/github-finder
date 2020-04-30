@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="en-US" class="h-100">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
@@ -18,53 +18,75 @@
     <link rel="manifest" href="manifest.json" />
     <link rel="icon" type="image/png" sizes="96x96" href="icon-96x96.png" />
     <title>Github Finder</title>
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
   </head>
-  <body class="text-center">
-    <main class="container d-flex mx-auto flex-column m-4">
-      <h1 class="mb-4">Gihub Finder</h1>
-      <form action="#" class="mx-auto">
-        <div class="form-row align-items-center">
-          <div class="col-auto">
-            <label for="user-input" class="sr-only">User :</label>
-            <input
-              type="text"
-              id="user-input"
-              class="form-control mb-2"
-              placeholder="Github user name"
-              name="user-input"
-            />
+  <body class="text-center d-flex flex-column h-100">
+    <main role="main" class="flex-shrink-0">
+      <div class="container d-flex mx-auto flex-column m-4">
+        <h1 class="mb-4">Gihub Finder</h1>
+        <form action="#" class="mx-auto">
+          <div class="form-row align-items-center">
+            <div class="col-auto">
+              <label for="user-input" class="sr-only">User :</label>
+              <input
+                type="text"
+                id="user-input"
+                class="form-control mb-2"
+                placeholder="Github user name"
+                name="user-input"
+              />
+            </div>
+            <div class="col-auto mb-2">
+              <button
+                type="submit"
+                id="submit-button"
+                class="btn btn-primary"
+                disabled
+              >
+                Search
+              </button>
+            </div>
           </div>
-          <div class="col-auto mb-2">
-            <button
-              type="submit"
-              id="submit-button"
-              class="btn btn-primary"
-              disabled
-            >
-              Search
-            </button>
-          </div>
+        </form>
+        <div
+          id="validation__error-message"
+          class="mx-auto alert alert-danger d-none"
+        ></div>
+        <div class="mx-auto">
+          <button id="delete-all-button" class="btn btn-primary mb-4" disabled>
+            Delete All
+          </button>
         </div>
-      </form>
-      <div
-        id="validation__error-message"
-        class="mx-auto alert alert-danger d-none"
-      ></div>
-      <div class="mx-auto">
-        <button id="delete-all-button" class="btn btn-primary mb-4" disabled>
-          Delete All
-        </button>
+        <article
+          class="d-flex flex-column align-items-xl-stretch mx-auto h-100"
+          id="user-card-container"
+        ></article>
       </div>
-      <article
-        class="d-flex flex-column align-items-xl-stretch mx-auto h-100"
-        id="user-card-container"
-      ></article>
     </main>
-    <footer>
-      Created by Francis Pelletier follow me on
-      <a href="https://github.com/fpelletier-gh/github-finder/" class="link"
-        >Github</a
-      >
+    <footer class="footer mt-auto py-3">
+      <div class="container">
+        <span class="text-muted">
+          Created by Francis Pelletier follow me on
+          <a href="https://github.com/fpelletier-gh/github-finder/" class="link"
+            >Github</a
+          ></span
+        >
+      </div>
     </footer>
   </body>
 </html>
