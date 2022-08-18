@@ -141,6 +141,16 @@ function createUserCard(data) {
 function users(userList = []) {
   let userCardList = userList;
 
+  function displayDeleteAllButton() {
+    if (userCardList.length <= 1) {
+      deleteAllButton.disabled = true;
+      deleteAllButton.style.display = "none";
+    } else {
+      deleteAllButton.disabled = false;
+      deleteAllButton.style.display = "block";
+    }
+  }
+
   function displayLocalStorage() {
     userCardList.forEach((user) => {
       displayUserCard(user);
@@ -150,7 +160,7 @@ function users(userList = []) {
   function addUser(user) {
     userCardList.push(user);
     window.localStorage.setItem("users", JSON.stringify(userCardList));
-    deleteAllButton.disabled = false;
+    displayDeleteAllButton();
   }
 
   function removeUser(userId) {
@@ -161,9 +171,7 @@ function users(userList = []) {
     window.localStorage.setItem("users", JSON.stringify(userCardList));
     let el = document.getElementById(userId);
     el.remove();
-    if (userCardList.length === 0) {
-      deleteAllButton.disabled = true;
-    }
+    displayDeleteAllButton();
   }
 
   function removeAllUser() {
@@ -189,7 +197,7 @@ function removeUserCard(e) {
 
 function handleDeleteAllButton() {
   userCardList.removeAllUser();
-  deleteAllButton.disabled = true;
+  displayDeleteAllButton();
 }
 
 const userCardContainer = $("#user-card-container");
