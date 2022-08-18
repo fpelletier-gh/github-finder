@@ -87,15 +87,17 @@ function createUserCard(data) {
   const { avatar_url, bio, html_url, id, name } = data;
   const card = createElementWithText("article", "", {
     id: id,
-    class: "card mb-3 p-1",
+    class: "card mb-4 p-1 pr-3",
     style: "max-width: 800px;",
   });
   const cardDiv = createElementWithText("div", "", { class: "row no-gutters" });
-  const imgDiv = createElementWithText("div", "", { class: "col-md-4" });
+  const imgDiv = createElementWithText("div", "", {
+    class: "col-md-4 p-3",
+  });
   const avatar = createElementWithText("img", "", {
     src: avatar_url,
     alt: name,
-    class: "card-img",
+    class: "rounded-circle card-img",
     style: "max-width: 200px;",
   });
   const cardBodyDiv = createElementWithText("div", "", {
