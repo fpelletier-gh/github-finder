@@ -112,10 +112,10 @@ function createUserCard(data) {
     style: "height: 100%;",
   });
   const title = createElementWithText("h2", name, {
-    class: "card-title align-self-start",
+    class: "card-title align-self-center align-self-md-start",
   });
   const paragraph = createElementWithText("p", bio, {
-    class: "card-text align-self-start",
+    class: "card-text text-center text-md-left",
   });
   const linkDiv = createElementWithText("div", "", {
     class: "card-text d-flex justify-content-between",
