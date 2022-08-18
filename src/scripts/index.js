@@ -10,9 +10,16 @@ function startup() {
   userCardList = users(savedUser);
   if (savedUser.length > 0) {
     userCardList.displayLocalStorage();
-    deleteAllButton.disabled = false;
+    if (savedUser.length <= 1) {
+      deleteAllButton.disabled = true;
+      deleteAllButton.style.display = "none";
+    } else {
+      deleteAllButton.disabled = false;
+      deleteAllButton.style.display = "block";
+    }
   } else {
     deleteAllButton.disabled = true;
+    deleteAllButton.style.display = "none";
   }
 }
 
