@@ -1,6 +1,6 @@
 # Github finder
 
-A simple application to find Github user by their username and display a card with some of their information.
+A simple application to find Github user by their username and display a card with informations about them.
 
 The goal of this project was to learn how to create a custom Webpack configuration to build, develop and minimize a web application. I used the bootstrap library for styling. For the Javascript, the focus was on document node creation, the fetch API and the use of functions.
 
