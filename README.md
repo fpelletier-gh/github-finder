@@ -6,13 +6,35 @@ The goal of this project was to learn how to create a custom Webpack configurati
 
 [Live preview](https://githubfinder.francispelletier.ca)
 
+## Table of Contents
+
+<!-- vim-markdown-toc GFM -->
+
+- [Feature overview](#feature-overview)
+- [Requirements](#requirements)
+  - [Node js LTS](#node-js-lts)
+- [Installation](#installation)
+  - [Development](#development)
+  - [Development Server](#development-server)
+  - [Production](#production)
+  - [serve the production build locally](#serve-the-production-build-locally)
+  - [Deployment](#deployment)
+
+<!-- vim-markdown-toc -->
+
+## Feature overview
+
+- Minimize Html
+- Minimize and bundle Javascript
+- [Bootstrap](https://getbootstrap.com/)
+
 ## Requirements
 
 - `Node js LTS` ([Node.js](https://nodejs.org/en/download/))
 
 ### Node js LTS
 
-Assuming you have [Node Version Manager](https://github.com/nvm-sh/nvm) installed:
+Assuming you have [Node Version Manager](https://github.com/nvm-sh/nvm) installed
 
 ```
 $ nvm install --lts
@@ -20,31 +42,33 @@ $ nvm install --lts
 
 ## Installation
 
-### Setup for local development:
+### Development
 
-Clone the repository:
+Clone the repository
 
 ```
 $ git clone https://github.com/fpelletier-gh/github-finder
 ```
 
-Change directory:
+Change directory
 
 ```
 $ cd github-finder
 ```
 
-Launch the development server:
+### Development Server
+
+Launch the development server
 
 ```
 $ npm run start
 ```
 
-> If you have problem with the development server make sure you are using Node js version 16.17.0
+> If you have problem with the development server make sure you are using the LTS version of Node js (version 16.17.0)
 
-### Setup for production:
+### Production
 
-Create the production build:
+Create the production build
 
 ```
 $ npm run build
@@ -52,16 +76,23 @@ $ npm run build
 
 > The production files will be created in the "dist" folder at the root of the project.
 
-Serve the production build locally:
+### serve the production build locally
+
+Serve the production build locally
 
 ```
 $ npm run serve
 ```
 
-Open the URL:
+Open the URL
 
 ```
 localhost:3000
 ```
 
-**_Deploy the "dist" folder to your favorite CDN_**
+### Deployment
+
+Some Deployment options
+
+- [Vercel](https://vercel.com/)
+- [Netlify](https://netlify.com/)
