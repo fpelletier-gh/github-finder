@@ -1,4 +1,4 @@
-# Github finder
+# Github Finder
 
 A simple application to find Github user by their username and display a card with informations about them.
 
